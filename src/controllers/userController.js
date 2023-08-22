@@ -22,7 +22,8 @@ async function createUser(req, res) {
     try {
       const db = await connectMongoDB();
       const userDao = new UserDao(db);
-      if (password.length >= 8 && /^[a-zA-Z0-9]+$/.test(password)) {
+      const alphaNumeric = /^[a-zA-Z0-9]+$/.test(password);
+      if (password.length >= 8 && alphaNumeric) {
         const user = await userDao.createUser({ username, password, role });
         res.status(200).json({
           success: true,
