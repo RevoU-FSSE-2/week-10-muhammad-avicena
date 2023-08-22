@@ -24,30 +24,7 @@ async function getAllUsers(req, res) {
   }
 }
 
-async function createUser(req, res) {
-  const { username, password, role } = req.body;
-
-  if (username && password && role) {
-    const db = await connectMongoDB(); 
-    const userDao = new UserDao(db);
-    const userService = new UserService(userDao);
-    const result = await userService.createUser(username, password, role);
-
-    if (result.success) {
-      res.status(200).json({
-        success: true,
-        message: "Successfully created a user",
-        data: { _id: result._id },
-      });
-    } else {
-      res.status(400).json(result);
-    }
-  } else {
-    res.status(400).json({ success: false, message: "Invalid input data" });
-  }
-}
 
 module.exports = {
-  getAllUsers,
-  createUser
+  getAllUsers
 };
