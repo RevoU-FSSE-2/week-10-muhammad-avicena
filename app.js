@@ -10,6 +10,7 @@ const app = express();
 
 // Import router
 const indexRoutes = require("./src/routes/indexRoutes");
+const authRoutes = require("./src/routes/authRoutes");
 const userRoutes = require("./src/routes/userRoutes");
 
 // Middleware
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 
 // App Router
 app.use("/", indexRoutes);
+app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 
 // App listeners
