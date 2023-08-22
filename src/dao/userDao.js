@@ -13,14 +13,14 @@ class UserDao {
   }
 
   async createUser({ username, password, role }) {
-    const createdDate = new Date();
-    const formatDate = format(createdDate, "dd-MM-yyyy");
+    const newDate = new Date();
+    const createdDate = format(newDate, "dd-MM-yyyy");
 
     const userData = {
       username,
       password,
       role,
-      formatDate,
+      createdDate,
     };
 
     try {
