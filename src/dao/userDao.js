@@ -6,7 +6,7 @@ class UserDao {
   async findAllUsers() {
     return this.db
       .collection("user")
-      .find({ is_deleted: { $exists: false } })
+      .find({ isDeleted: { $exists: false } })
       .toArray();
   }
 }
