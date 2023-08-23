@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { JWT_SIGN } = require("../middleware/jwtConfig");
+const { JWT_SIGN } = require("../middleware/config/jwtConfig");
 
 class AuthService {
   constructor(authDao) {
@@ -35,6 +35,21 @@ class AuthService {
 
   async registerUser(username, password, role) {
     try {
+      if (username.trim() === "") {
+        return {
+          success: false,
+          message: "Failed to register. Username cannot be blank",
+        };
+      }
+
+      const allowedRoles = ["admin", "maker", "approver"];
+      if (!allowedRoles.includes(role)) {
+        return {
+          success: false,
+          message: "Failed to register. Invalid role specified",
+        };
+      }
+
       if (password.length >= 8 && /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)) {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await this.authDao.registerUser({
@@ -52,6 +67,12 @@ class AuthService {
       }
     } catch (error) {
       console.log(error.message);
+      if (error.message === "Username already exists") {
+        return {
+          success: false,
+          message: "Failed to register. Username already exists",
+        };
+      }
       return { success: false, message: "Internal Server Error" };
     }
   }

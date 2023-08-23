@@ -6,13 +6,12 @@ class UserService {
   async getAllUsers() {
     try {
       const users = await this.userDao.findAllUsers();
-      return { success: true, users };
+      return { success: true, users: users };
     } catch (error) {
       console.log(error.message);
-      return { success: false, message: "Internal Server Error" };
+      return { success: false, message: error.message };
     }
   }
-
 }
 
 module.exports = UserService;
