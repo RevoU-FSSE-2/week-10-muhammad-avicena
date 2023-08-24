@@ -2,14 +2,16 @@ const express = require("express");
 const {
   getAllTransfer,
   createTransfer,
-  getTransferById
+  getTransferById,
+  updateTransferStatus,
 } = require("../controllers/transferController");
-const { adminAuthorization } = require("../middleware/authMiddleware");
+const { approverAuthorization } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.get("/", adminAuthorization, getAllTransfer);
+router.get("/", getAllTransfer);
 router.post("/", createTransfer);
 router.get("/:id", getTransferById);
+router.patch("/:id", approverAuthorization, updateTransferStatus);
 
 module.exports = router;

@@ -19,6 +19,39 @@ class TransferService {
       return { success: true, message: transferData };
     } catch (error) {
       console.log(error.message);
+      if (
+        error.message ===
+        "Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer"
+      ) {
+        return { success: false, message: "Transfer list not found" };
+      }
+      return { success: false, message: error.message };
+    }
+  }
+
+  async updateTransferStatus({ id, status }) {
+    try {
+      const allowedStatus = ["pending", "approve", "reject"];
+      if (!allowedStatus.includes(status)) {
+        return {
+          success: false,
+          message: "Failed to update transfer. Invalid status specified",
+        };
+      }
+      const transferData = await this.transferDao.updateTransferStatus({
+        id,
+        status,
+      });
+      console.log("cek transfer data: " + transferData);
+      return { success: true, message: transferData };
+    } catch (error) {
+      console.log(error);
+      if (
+        error.message ===
+        "Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer"
+      ) {
+        return { success: false, message: "Transfer list not found" };
+      }
       return { success: false, message: error.message };
     }
   }

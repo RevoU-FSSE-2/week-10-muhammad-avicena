@@ -45,10 +45,34 @@ class TransferDao {
         .findOne({ _id: objectId });
 
       if (!transfer) {
-        throw new Error(`Transfer not found`);
+        throw new Error(`Transfer list not found`);
       }
 
       return transfer;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateTransferStatus({ id, status }) {
+    try {
+      const objectId = new ObjectId(id);
+      const transfer = await this.db
+        .collection("transfer")
+        .findOneAndUpdate({ _id: objectId }, { $set: { status } });
+      const getTransfer = await this.db
+        .collection("transfer")
+        .findOne({ _id: objectId });
+
+      if (transfer.value === null && !getTransfer) {
+        throw new Error(`Transfer list not found`);
+      } else {
+        const transferData = {
+          oldVersion: transfer.value,
+          updatedVersion: getTransfer,
+        };
+        return transferData;
+      }
     } catch (error) {
       throw error;
     }

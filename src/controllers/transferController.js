@@ -73,8 +73,36 @@ async function createTransfer(req, res) {
   }
 }
 
+async function updateTransferStatus(req, res) {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const db = await connectMongoDB();
+    const transferDao = new TransferDao(db);
+    const transferService = new TransferService(transferDao);
+    const result = await transferService.updateTransferStatus({
+      id,
+      status,
+    });
+    if (result.success) {
+      return res.status(200).json({
+        success: true,
+        message: "Successfully update a transfer",
+        data: result.message,
+      });
+    } else {
+      return res.status(500).json({ success: false, message: result.message });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
 module.exports = {
   getAllTransfer,
   createTransfer,
   getTransferById,
+  updateTransferStatus,
 };
