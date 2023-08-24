@@ -5,17 +5,27 @@ class TransferService {
 
   async findAllTransfer() {
     try {
-      const transfer = await this.transferDao.findAllTransfer();
-      return { success: true, transfer: transfer };
+      const transferData = await this.transferDao.findAllTransfer();
+      return { success: true, message: transferData };
     } catch (error) {
       console.log(error.message);
-      return { success: false, message: error.message};
+      return { success: false, message: error.message };
+    }
+  }
+
+  async getTransferById({ id }) {
+    try {
+      const transferData = await this.transferDao.getTransferById({ id });
+      return { success: true, message: transferData };
+    } catch (error) {
+      console.log(error.message);
+      return { success: false, message: error.message };
     }
   }
 
   async createTransfer({ bank, amount, toUser, desc }) {
     try {
-      if (typeof bank !== "string" || bank.trim() === "") {
+      if (typeof bank !== "string" || bank === null) {
         return {
           success: false,
           message:
@@ -23,11 +33,7 @@ class TransferService {
         };
       }
 
-      if (
-        typeof amount !== "number" ||
-        amount < 10000 ||
-        amount.trim() === ""
-      ) {
+      if (typeof amount !== "number" || amount < 10000 || amount === null) {
         return {
           success: false,
           message:
@@ -35,7 +41,7 @@ class TransferService {
         };
       }
 
-      if (typeof toUser !== "string" || toUser.trim() === "") {
+      if (typeof toUser !== "string" || toUser === null) {
         return {
           success: false,
           message:
@@ -43,21 +49,20 @@ class TransferService {
         };
       }
 
-      if (typeof desc !== "string" || desc.trim() === "") {
+      if (typeof desc !== "string" || desc === null) {
         return {
           success: false,
           message:
             "Failed to create transfer. Desc should be a non-empty string",
         };
       }
-      const user = await this.transferDao.createTransfer({
+      const transferData = await this.transferDao.createTransfer({
         bank,
         amount,
-        role,
         toUser,
         desc,
       });
-      return { success: true, _id: user.insertedId };
+      return { success: true, message: transferData.insertedId };
     } catch (error) {
       console.log(error);
       return { success: false, message: "Internal Server Error" };

@@ -1,4 +1,5 @@
 const { format } = require("date-fns");
+const { ObjectId } = require("mongodb");
 
 class TransferDao {
   constructor(db) {
@@ -29,8 +30,25 @@ class TransferDao {
     try {
       const result = await this.db
         .collection("transfer")
-        .isertOne(transferData);
+        .insertOne(transferData);
       return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getTransferById({ id }) {
+    try {
+      const objectId = new ObjectId(id);
+      const transfer = await this.db
+        .collection("transfer")
+        .findOne({ _id: objectId });
+
+      if (!transfer) {
+        throw new Error(`Transfer not found`);
+      }
+
+      return transfer;
     } catch (error) {
       throw error;
     }
