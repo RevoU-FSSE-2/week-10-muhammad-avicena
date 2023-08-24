@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "node 'node_modules/.bin/jest'"
   },
   "keywords": [],
   "author": "",
@@ -21,9 +22,12 @@
     "jsonwebtoken": "^9.0.1",
     "mongodb": "^5.8.0",
     "morgan": "^1.10.0",
-    "saslprep": "^1.0.3"
+    "saslprep": "^1.0.3",
+    "swagger-ui-express": "^5.0.0",
+    "yaml": "^2.3.1"
   },
   "devDependencies": {
+    "jest": "^29.6.4",
     "nodemon": "^3.0.1"
   }
 }
