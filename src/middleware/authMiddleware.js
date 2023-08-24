@@ -9,11 +9,9 @@ const userAuthentication = (req, res, next) => {
     res.status(401).json({ error: "Unauthorized" });
   } else {
     const token = authHeader.split(" ")[1];
-    console.log("token :", token);
-
     try {
       const decodedToken = jwt.verify(token, JWT_SIGN);
-      console.log(decodedToken, "decodedToken");
+      console.log("Verified user :", decodedToken, "decodedToken");
       next();
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -21,7 +19,28 @@ const userAuthentication = (req, res, next) => {
   }
 };
 
-const userAuthorization = (req, res, next) => {
+const approverAuthorization = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) {
+    res.status(401).json({ error: "Unauthorized" });
+  } else {
+    const token = authHeader.split(" ")[1];
+
+    try {
+      const decodedToken = jwt.verify(token, JWT_SIGN);
+      if (decodedToken.role === "admin" || decodedToken.role === "approver") {
+        next();
+      } else {
+        res.status(401).json({ error: "Unauthorized" });
+      }
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+};
+
+const adminAuthorization = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -42,4 +61,4 @@ const userAuthorization = (req, res, next) => {
   }
 };
 
-module.exports = { userAuthentication, userAuthorization };
+module.exports = { userAuthentication, adminAuthorization, approverAuthorization };

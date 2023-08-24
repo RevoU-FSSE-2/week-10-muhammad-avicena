@@ -20,7 +20,7 @@ class AuthService {
           { username: user.username, id: user._id, role: user.role },
           JWT_SIGN
         );
-        return { success: true, token: token };
+        return { success: true, message: token };
       } else {
         return {
           success: false,
@@ -57,7 +57,7 @@ class AuthService {
           password: hashedPassword,
           role,
         });
-        return { success: true, _id: user.insertedId };
+        return { success: true, message: user.insertedId };
       } else {
         return {
           success: false,

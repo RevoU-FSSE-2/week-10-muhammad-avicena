@@ -15,7 +15,7 @@ async function loginUser(req, res) {
       return res.status(200).json({
         success: true,
         message: "Successfully logged in",
-        data: { token: result.token },
+        data: { token: result.message },
       });
     } else {
       res.status(500).json({ success: false, message: result.message });
@@ -39,13 +39,15 @@ async function registerUser(req, res) {
       return res.status(200).json({
         success: true,
         message: "Successfully created a user",
-        data: { _id: result._id },
+        data: { _id: result.message },
       });
     } else {
       return res.status(400).json(result);
     }
   } else {
-    return res.status(400).json({ success: false, message: "Invalid input data" });
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid input data" });
   }
 }
 
