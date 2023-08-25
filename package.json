@@ -1,7 +1,7 @@
 {
   "name": "week-10-muhammad-avicena",
   "version": "1.0.0",
-  "description": "Built and implemented authentication and authorization logic using Node.js, Express.js, OpenAPI specification, and Swagger.",
+  "description": "Built and implemented role-based access application using Node.js, Express.js, OpenAPI specification, Jest and Swagger.",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
