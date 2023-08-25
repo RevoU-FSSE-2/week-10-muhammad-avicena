@@ -38,7 +38,7 @@ async function getTransferById(req, res) {
         data: result.message,
       });
     } else {
-      return res.status(500).json({ success: false, message: result.message });
+      return res.status(404).json({ success: false, message: result.message });
     }
   } catch (error) {
     console.log(error);
@@ -65,7 +65,7 @@ async function createTransfer(req, res) {
         data: { _id: result.message },
       });
     } else {
-      return res.status(500).json({ success: false, message: result.message });
+      return res.status(404).json({ success: false, message: result.message });
     }
   } catch (error) {
     console.log(error);
@@ -92,7 +92,7 @@ async function updateTransferStatus(req, res) {
         data: result.message,
       });
     } else {
-      return res.status(500).json({ success: false, message: result.message });
+      return res.status(404).json({ success: false, message: result.message });
     }
   } catch (error) {
     console.log(error);
