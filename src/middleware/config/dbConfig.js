@@ -30,7 +30,7 @@ async function mongoDbDev(req, res, next) {
 
 const connectMongoDb = async () => {
   // Change database connection to local or server
-  const db = await mongoDbDev();
+  const db = await mongoDbProd();
   return db;
 };
 
