@@ -9,6 +9,7 @@ const {
   adminAuthorization,
 } = require("./src/middleware/authMiddleware");
 require("dotenv").config();
+const cors = require("cors");
 
 const OpenApiValidator = require("express-openapi-validator");
 const swaggerUi = require("swagger-ui-express");
@@ -27,6 +28,7 @@ const historyRoutes = require("./src/routes/historyRoutes");
 // Middleware
 app.use(logger("dev"));
 app.use(bodyParser.json());
+app.use(cors());
 
 // APi Documentation
 const openApiPath = "api-docs.yaml";
