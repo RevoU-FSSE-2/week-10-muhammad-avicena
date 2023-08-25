@@ -87,7 +87,7 @@ Interested to have collaboration ? Find me on:
 
 ### Jest - Unit Testing
 
-![Unit testing](./assets/jest.png)
+![Unit testing](./assets/Jest.png)
 
 ## DEPLOYMENT ⚙️
 
