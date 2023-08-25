@@ -13,27 +13,30 @@ Interested to have collaboration ? Find me on:
 [![Gmail Badge](https://img.shields.io/badge/-cenarahmant.dev@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white)](mailto:cenarahmant.dev@gmail.com)
 
 ## INGREDIENTS I USE 📜
+
 - Node.js & Express.js
 - OpenAPI Spec
-- Jest 
+- Jest
 - Swagger UI
+
 ## KEY FEATURES 🌟
 
-- Auth 
-    - Login (JWT Auth) -> return a token for authorization
-    - Register 
-- Transfer 
-    - Create a transfer -> require user authentication
-    - Get list of all transfer -> require user authentication
-    - Get transfer by ID -> require user authentication
-    - Update transfer status -> require approver/admin role
+- Auth
+  - Login (JWT Auth) -> return a token for authorization
+  - Register
+- Transfer
+  - Create a transfer -> require user authentication
+  - Get list of all transfer -> require user authentication
+  - Get transfer by ID -> require user authentication
+  - Update transfer status -> require approver/admin role
 - History
-    - Get history transfer by querry -> require admin role
-    - Delete history transfer -> require admin role
+  - Get history transfer by querry -> require admin role
+  - Delete history transfer -> require admin role
 - User
-    - Get list of all user -> require admin role
+  - Get list of all user -> require admin role
 
 **Available Account** :
+
 ```
 {
   "username": "avicena.dev",
@@ -42,6 +45,7 @@ Interested to have collaboration ? Find me on:
   "role": "admin"
 }
 ```
+
 ```
 {
   "username": "avicena.user",
@@ -53,23 +57,42 @@ Interested to have collaboration ? Find me on:
 
 ## AVAILABLE API 📰
 
-**Back-end endpoint:** [https://transfer-api.avicena.dev](https://transfer-api.avicena.dev) 
- 
-| Name  | HTTP Method | Endpoint | Requirements
-| ----------- | ----------- | ----------- | ----------- |
-| **Login User** | `POST` | [/api/v1/auth/login](https://transfer-api.api.avicena.dev/api/v1/auth/login) | Request Body: `username: string, password: string`
-| **Register User** | `POST` | [/api/v1/auth/register](https://transfer-api.api.avicena.dev/api/auth/login) | Request Body: `username: string, password: string, role: string`
-| **List All User** | `GET` | [/api/v1/users](https://transfer-api.api.avicena.dev/)
-| **List All Transfer** | `GET` | [/api/v1/transfers](https://transfer-api.avicena.dev/api/transaction)
-| **List Transfer by ID** | `GET` | [/api/v1/transfer/:id](https://transfer-api.avicena.dev/api/user/1) | Request Params: `id: number`
-| **Create Transfer** | `POST` | [/api/v1/transfer](https://transfer-api.avicena.dev/api/transaction) | Request Body: `bank: string, amount: number, toUser: string, desc: string`
-| **Update Transfer Status by ID** | `PATCH` | [/api/v1/transfer/:id](https://transfer-api.avicena.dev/api/transaction/1) | Request Body: `status: string`
-| **Find History Transfer by querry** | `GET` | [/api/v1/transfer](https://transfer-api.avicena.dev/api/transaction) | Request Body: `startDate: string, endDate: string, status: string, status: string` -> could find by multiple status
-| **Delete Transfer by ID** | `DELETE` | [/api/v1/transfer/:id](https://transfer-api.avicena.dev/api/transaction/1) | Request Params: `id: number`
+**Back-end endpoint:** [https://transfer-api.avicena.dev](https://transfer-api.avicena.dev)
 
+| Name                                | HTTP Method | Endpoint                                                   | Requirements                                                                                                        |
+| ----------------------------------- | ----------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Login User**                      | `POST`      | [/api/v1/auth/login](https://transfer-api.avicena.dev/)    | Request Body: `username: string, password: string`                                                                  |
+| **Register User**                   | `POST`      | [/api/v1/auth/register](https://transfer-api.avicena.dev/) | Request Body: `username: string, password: string, role: string`                                                    |
+| **List All User**                   | `GET`       | [/api/v1/users](https://transfer-api.avicena.dev/)         |
+| **List All Transfer**               | `GET`       | [/api/v1/transfers](https://transfer-api.avicena.dev/)     |
+| **List Transfer by ID**             | `GET`       | [/api/v1/transfer/:id](https://transfer-api.avicena.dev/)  | Request Params: `id: number`                                                                                        |
+| **Create Transfer**                 | `POST`      | [/api/v1/transfer](https://transfer-api.avicena.dev/)      | Request Body: `bank: string, amount: number, toUser: string, desc: string`                                          |
+| **Update Transfer Status by ID**    | `PATCH`     | [/api/v1/transfer/:id](https://transfer-api.avicena.dev/)  | Request Body: `status: string`                                                                                      |
+| **Find History Transfer by querry** | `GET`       | [/api/v1/transfer](https://transfer-api.avicena.dev/)      | Request Body: `startDate: string, endDate: string, status: string, status: string` -> could find by multiple status |
+| **Delete Transfer by ID**           | `DELETE`    | [/api/v1/transfer/:id](https://transfer-api.avicena.dev/)  | Request Params: `id: number`                                                                                        |
+
+## Components
+
+### Swagger UI
+
+![Swagger UI](./assets/deploy.png)
+
+### MongoDB
+
+![Mongo DB](./assets/mongoDB.png)
+
+### Open API Validator
+
+![Open API speec](./assets/OpenApiSpec.png)
+
+### Jest - Unit Testing
+
+![Unit testing](./assets/jest.png)
 
 ## DEPLOYMENT ⚙️
 
-The project has been successfully deployed using Netlify. You can access the production version of the website by following this link: [https://transfer-api.avicena.dev](https://transfer-api.avicena.dev).
+![Deploy](./assets/deployRailway.png)
+
+The project has been successfully deployed using Railway. You can access the production version of the website by following this link: [https://transfer-api.avicena.dev](https://transfer-api.avicena.dev).
 
 Feel free to explore the website and try out the different features. I appreciate any feedback and suggestions to further improve the user experience.
