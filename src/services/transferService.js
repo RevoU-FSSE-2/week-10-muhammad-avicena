@@ -42,7 +42,6 @@ class TransferService {
         id,
         status,
       });
-      console.log("cek transfer data: " + transferData);
       return { success: true, message: transferData };
     } catch (error) {
       console.log(error);
