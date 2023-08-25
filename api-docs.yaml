@@ -202,6 +202,8 @@ paths:
       tags:
         - transfer 
       summary: 'Create transfer'
+      security:
+        - bearer: []
       requestBody:
         content:
           application/json:
