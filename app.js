@@ -20,6 +20,7 @@ const indexRoutes = require("./src/routes/indexRoutes");
 const authRoutes = require("./src/routes/authRoutes");
 const userRoutes = require("./src/routes/userRoutes");
 const transferRoutes = require("./src/routes/transferRoutes");
+const historyRoutes = require("./src/routes/historyRoutes");
 
 // Middleware
 app.use(logger("dev"));
@@ -31,11 +32,12 @@ const readApiFile = fs.readFileSync(apiDocs, "utf8");
 const swaggerDocs = yaml.parse(readApiFile);
 
 // App Router
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/", indexRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", adminAuthorization, userRoutes);
 app.use("/api/v1/transfers", userAuthentication, transferRoutes);
+app.use("/api/v1/histories", adminAuthorization, historyRoutes);
 
 // App listeners
 const server = http.createServer(app);
