@@ -3,13 +3,15 @@ const http = require("http");
 const createError = require("http-errors");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
-const swaggerUi = require("swagger-ui-express");
 const connectMongoDb = require("./src/middleware/config/dbConfig");
 const {
   userAuthentication,
   adminAuthorization,
 } = require("./src/middleware/authMiddleware");
 require("dotenv").config();
+
+const OpenApiValidator = require("express-openapi-validator");
+const swaggerUi = require("swagger-ui-express");
 const yaml = require("yaml");
 const fs = require("fs");
 
@@ -27,12 +29,18 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 
 // APi Documentation
-const apiDocs = "api-docs.yaml";
-const readApiFile = fs.readFileSync(apiDocs, "utf8");
+const openApiPath = "api-docs.yaml";
+const readApiFile = fs.readFileSync(openApiPath, "utf8");
 const swaggerDocs = yaml.parse(readApiFile);
 
 // App Router
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use(
+  OpenApiValidator.middleware({
+    apiSpec: openApiPath,
+    validateRequests: true,
+  })
+);
 app.use("/", indexRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", adminAuthorization, userRoutes);
