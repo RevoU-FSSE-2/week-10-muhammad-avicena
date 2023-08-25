@@ -4,6 +4,8 @@ info:
   version: 1.0.0
   description: 'Built and implemented role-based access application using Node.js, Express.js, OpenAPI specification, Jest and Swagger.'
 servers:
+  - url: https://transfer-api.avicena.dev
+    description: 'Production server'
   - url: http://localhost:5001
     description: 'Development server'
 components:
