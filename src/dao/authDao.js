@@ -19,7 +19,7 @@ class AuthDao {
 
   async registerUser({ username, password, role }) {
     const newDate = new Date();
-    const createdDate = format(newDate, "dd-MM-yyyy");
+    const createdDate = format(newDate, "yyyy-MM-dd");
 
     const userData = {
       username,

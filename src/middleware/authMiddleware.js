@@ -3,7 +3,6 @@ const { JWT_SIGN } = require("./config/jwtConfig.js");
 
 const userAuthentication = (req, res, next) => {
   const authHeader = req.headers.authorization;
-  console.log("header :", authHeader);
 
   if (!authHeader) {
     res.status(401).json({ error: "Unauthorized" });
@@ -11,7 +10,7 @@ const userAuthentication = (req, res, next) => {
     const token = authHeader.split(" ")[1];
     try {
       const decodedToken = jwt.verify(token, JWT_SIGN);
-      console.log("Verified user :", decodedToken, "decodedToken");
+      console.log("Verified user:", decodedToken);
       next();
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -19,7 +18,7 @@ const userAuthentication = (req, res, next) => {
   }
 };
 
-const approverAuthorization = (req, res, next) => {
+const authorizationMiddleware = (allowedRoles) => (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -29,7 +28,7 @@ const approverAuthorization = (req, res, next) => {
 
     try {
       const decodedToken = jwt.verify(token, JWT_SIGN);
-      if (decodedToken.role === "admin" || decodedToken.role === "approver") {
+      if (allowedRoles.includes(decodedToken.role)) {
         next();
       } else {
         res.status(401).json({ error: "Unauthorized" });
@@ -40,25 +39,11 @@ const approverAuthorization = (req, res, next) => {
   }
 };
 
-const adminAuthorization = (req, res, next) => {
-  const authHeader = req.headers.authorization;
+const adminAuthorization = authorizationMiddleware(["admin"]);
+const approverAuthorization = authorizationMiddleware(["admin", "approver"]);
 
-  if (!authHeader) {
-    res.status(401).json({ error: "Unauthorized" });
-  } else {
-    const token = authHeader.split(" ")[1];
-
-    try {
-      const decodedToken = jwt.verify(token, JWT_SIGN);
-      if (decodedToken.role === "admin") {
-        next();
-      } else {
-        res.status(401).json({ error: "Unauthorized" });
-      }
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  }
+module.exports = {
+  userAuthentication,
+  adminAuthorization,
+  approverAuthorization,
 };
-
-module.exports = { userAuthentication, adminAuthorization, approverAuthorization };

@@ -15,7 +15,7 @@ class TransferDao {
 
   async createTransfer({ bank, amount, toUser, desc }) {
     const newDate = new Date();
-    const createdDate = format(newDate, "dd-MM-yyyy");
+    const createdDate = format(newDate, "yyyy-MM-dd");
     const status = "pending";
 
     const transferData = {
