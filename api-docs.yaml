@@ -328,6 +328,18 @@ paths:
         schema:
           type: string 
         description: ID of the transfer list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                status:
+                  type: string
+                  enum:
+                    - approve
+                    - reject
+                    - pending
+                  default: approve
       responses:
         '200':
           description: 'Successfully updated transfer status'
@@ -387,7 +399,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
-  /api/v1/histories:
+  /api/v1/histories/{id}:
     delete:
       operationId: Delete request list by ID
       tags:
@@ -417,6 +429,12 @@ paths:
                     default: Successfully delete request transfer
                   data:
                     $ref: '#/components/schemas/TransferData'
+        '400':
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
         '401':
           description: 'Unauthorized'
           content:
@@ -436,39 +454,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
     get:
-      operationId: Get history by querry
+      operationId: Get history by query
       tags:
         - history
       security:
         - bearer: []
-      summary: 'Get history by querry'
+      summary: 'Get history by query'
       parameters:
         - in: query
           name: startDate
           schema:
             type: string
-            format: date
-            default: 2023-25-8
+            default: 2023-8-24
           description: Start date of the history range
         - in: query
           name: endDate
           schema:
             type: string
-            format: date
-            default: 2023-30-8
+            default: 2023-8-30
           description: End date of the history range
         - in: query
           name: status
           schema:
-            type: string
-            default: pending
-          description: Status of the transfer list
-        - in: query
-          name: status
-          schema:
-            type: string
-            default: approve
-          description: Status of the transfer list
+            type: array
+            items:
+              type: string
+              enum: [pending, approve, reject]
+          explode: true
+          description: Status of the transfer list (multiple values allowed)
       responses:
         '200':
           description: 'List of all history'
