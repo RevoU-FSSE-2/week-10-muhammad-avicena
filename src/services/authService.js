@@ -42,6 +42,14 @@ class AuthService {
         };
       }
 
+      const allowedRoles = ["maker", "approver", "admin"];
+      if (!allowedRoles.includes(role)) {
+        return {
+          success: false,
+          message: "Invalid role. Allowed roles are: maker, approver, admin",
+        };
+      }
+
       if (password.length >= 8 && /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)) {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await this.authDao.registerUser({
