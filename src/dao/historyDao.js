@@ -8,7 +8,6 @@ class UserDao {
   async findHistory({ startDate, endDate, status }) {
     const startDateFormat = format(new Date(startDate), "yyyy-MM-dd");
     const endDateFormat = format(new Date(endDate), "yyyy-MM-dd");
-
     const query = {
       isDeleted: { $exists: false },
       createdDate: {
@@ -23,10 +22,10 @@ class UserDao {
 
   async historySoftDelete({ id }) {
     try {
-        const objectId = new ObjectId(id);
-        const historyToUpdate = await this.db
-          .collection("transfer")
-          .findOne({ _id: objectId });
+      const objectId = new ObjectId(id);
+      const historyToUpdate = await this.db
+        .collection("transfer")
+        .findOne({ _id: objectId });
 
       if (!historyToUpdate) {
         throw new Error("History not found");

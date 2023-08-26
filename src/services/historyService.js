@@ -25,11 +25,11 @@ class HistoryService {
         };
       }
 
-      const historyData = await this.historyDao.findHistory(
+      const historyData = await this.historyDao.findHistory({
         startDate,
         endDate,
-        validStatus
-      );
+        status,
+      });
 
       if (historyData.length === 0) {
         return {

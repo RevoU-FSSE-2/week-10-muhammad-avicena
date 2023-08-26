@@ -37,12 +37,12 @@ const swaggerDocs = yaml.parse(readApiFile);
 
 // App Router
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-app.use(
-  OpenApiValidator.middleware({
-    apiSpec: openApiPath,
-    validateRequests: true,
-  })
-);
+// app.use(
+//   OpenApiValidator.middleware({
+//     apiSpec: openApiPath,
+//     validateRequests: true,
+//   })
+// );
 app.use("/", indexRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", adminAuthorization, userRoutes);
