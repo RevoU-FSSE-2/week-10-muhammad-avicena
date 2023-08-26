@@ -7,9 +7,6 @@ class AuthDao {
   async loginUser({ username }) {
     try {
       const user = await this.db.collection("user").findOne({ username });
-      if (!user) {
-        return new Error("User not found");
-      }
       return user;
     } catch (error) {
       console.log(error.message);
